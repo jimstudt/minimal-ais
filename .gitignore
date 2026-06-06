@@ -1,3 +1,5 @@
 minimal-ais
+minimal-ais-serial/minimal-ais-serial
+minimal-ais-json/minimal-ais-json
 *~
 *.o
