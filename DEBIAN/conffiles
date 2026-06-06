@@ -1,0 +1,2 @@
+/etc/systemd/system/minimal-ais-serial.service
+/etc/systemd/system/minimal-ais-json.service

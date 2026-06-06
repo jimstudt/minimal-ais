@@ -1,0 +1,14 @@
+[Unit]
+Description=Minimal AIS UDP to JSON scoreboard
+After=network.target
+
+[Service]
+Type=simple
+RuntimeDirectory=minimal-ais
+RuntimeDirectoryMode=0755
+ExecStart=/usr/bin/minimal-ais-json -l 127.0.0.1:10110 -o /run/minimal-ais/current.json -a 12h
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

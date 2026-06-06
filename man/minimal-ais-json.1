@@ -1,0 +1,59 @@
+.TH MINIMAL-AIS-JSON 1
+.SH NAME
+minimal-ais-json \- write a JSON scoreboard from UDP AIS messages
+.SH SYNOPSIS
+.B minimal-ais-json
+.B \-l
+.I address:port
+.B \-o
+.I file.json
+[
+.B \-a
+.I duration
+]
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B minimal-ais-json
+listens for UDP NMEA AIS sentences and writes a JSON file containing the latest
+known data by MMSI.
+.PP
+The program processes AIS message types 1, 2, 3, 4, 18, 21, and 24. It tracks
+sender type, name, location, heading, speed, MMSI, update time, and last-seen
+time. Output is sorted by MMSI.
+.PP
+The JSON file is rewritten when a processed sentence changes the scoreboard and
+at least once a minute while the program is running. Entries older than the
+maximum age are dropped before writing.
+.SH OPTIONS
+.TP
+.BI \-l " address:port"
+UDP address and port to listen on. IPv6 addresses must be written as
+.IR [address]:port .
+.TP
+.BI \-o " file.json"
+JSON output file. The program writes a temporary file next to this path and then
+renames it into place.
+.TP
+.BI \-a " duration"
+Drop entries not seen within this interval. The default is
+.BR 12h .
+Durations may be bare seconds or use
+.BR s ,
+.BR m ,
+.BR h ,
+or
+.BR d .
+.TP
+.B \-v
+Print each valid AIS sentence before processing it.
+.TP
+.B \-h
+Show usage.
+.SH EXAMPLES
+.EX
+minimal-ais-json -l 0.0.0.0:10110 -o /run/minimal-ais/current.json -a 12h
+.EE
+.SH SEE ALSO
+.BR minimal-ais-serial (1)

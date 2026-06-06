@@ -1,0 +1,10 @@
+Package: minimal-ais
+Version: @PKGVERSION@
+Section: utils
+Priority: optional
+Architecture: @PKGARCH@
+Maintainer: Jim Stutd<jim@studt.net>
+Description: Minimal AIS serial forwarder and JSON scoreboard
+ minimal-ais includes two small POSIX/C tools. minimal-ais-serial reads AIS
+ messages from a serial port and forwards them to UDP destinations.
+ minimal-ais-json listens for UDP AIS messages and writes a JSON scoreboard.

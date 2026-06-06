@@ -1,0 +1,63 @@
+.TH MINIMAL-AIS-SERIAL 1
+.SH NAME
+minimal-ais-serial \- forward AIS serial messages to UDP destinations
+.SH SYNOPSIS
+.B minimal-ais-serial
+.B \-s
+.I serial
+[
+.B \-b
+.I baud
+]
+[
+.B \-v
+]
+.B \-d
+.I host:port[:Ns]
+[
+.B \-d
+.I host:port[:Ns]
+...
+]
+.SH DESCRIPTION
+.B minimal-ais-serial
+reads NMEA AIS sentences from a serial port and forwards valid sentences to one
+or more UDP destinations.
+.PP
+Validation is intentionally shallow. A sentence must start with
+.B !
+and have a valid NMEA checksum.
+.PP
+If a destination ends with
+.I :Ns
+the program rate limits that destination to one forwarded sentence per decoded
+MMSI every
+.I N
+seconds. Sentences whose MMSI cannot be decoded are forwarded normally.
+.SH OPTIONS
+.TP
+.BI \-s " serial"
+Serial device path, for example
+.IR /dev/ttyUSB0 .
+.TP
+.BI \-b " baud"
+Serial baud rate. The default is
+.BR 38400 .
+.TP
+.BI \-d " host:port[:Ns]"
+UDP destination. Repeat this option for multiple destinations. IPv6 addresses
+must be written as
+.IR [address]:port .
+.TP
+.B \-v
+Print each valid AIS sentence before forwarding it.
+.TP
+.B \-h
+Show usage.
+.SH EXAMPLES
+.EX
+minimal-ais-serial -s /dev/ttyUSB0 -b 38400 \e
+    -d 127.0.0.1:10110 -d 10.10.10.255:10110:30s
+.EE
+.SH SEE ALSO
+.BR minimal-ais-json (1)

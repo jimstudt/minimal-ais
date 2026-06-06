@@ -1,0 +1,12 @@
+[Unit]
+Description=Minimal AIS serial to UDP forwarder
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/minimal-ais-serial -s /dev/ttyACM1 -b 38400 -d 127.0.0.1:10110
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
