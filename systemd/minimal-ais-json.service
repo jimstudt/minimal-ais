@@ -1,6 +1,7 @@
 [Unit]
 Description=Minimal AIS UDP to JSON scoreboard
 After=network.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple

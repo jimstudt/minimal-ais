@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ] && command -v systemctl >/dev/null 2>&1; then
+    systemctl daemon-reload || true
+    systemctl try-restart minimal-ais-serial.service || true
+    systemctl try-restart minimal-ais-json.service || true
+fi
+
+exit 0

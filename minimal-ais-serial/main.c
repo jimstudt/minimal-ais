@@ -425,7 +425,8 @@ int main(int argc, char **argv)
             break;
         }
         if (n == 0) {
-            continue;
+            fprintf(stderr, "read: end of file\n");
+            break;
         }
         if (!valid_ais_line(line)) {
             continue;

@@ -6,7 +6,7 @@ BINDIR ?= $(PREFIX)/bin
 MANDIR ?= $(PREFIX)/share/man
 PKGROOT ?= pkgroot
 PKGNAME ?= minimal-ais
-PKGVERSION ?= 0.1.0
+PKGVERSION ?= 0.1.1
 PKGARCH ?= $(shell if command -v dpkg >/dev/null 2>&1; then dpkg --print-architecture; else uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/'; fi)
 PKGFILE = $(PKGNAME)_$(PKGVERSION)_$(PKGARCH).deb
 
@@ -47,6 +47,8 @@ pkgroot: all
 	install -d $(PKGROOT)/etc/systemd/system
 	sed -e 's/@PKGVERSION@/$(PKGVERSION)/g' -e 's/@PKGARCH@/$(PKGARCH)/g' DEBIAN/control > $(PKGROOT)/DEBIAN/control
 	install -m 644 DEBIAN/conffiles $(PKGROOT)/DEBIAN/conffiles
+	install -m 755 DEBIAN/postinst $(PKGROOT)/DEBIAN/postinst
+	install -m 755 DEBIAN/postrm $(PKGROOT)/DEBIAN/postrm
 	install -m 644 systemd/minimal-ais-serial.service $(PKGROOT)/etc/systemd/system/minimal-ais-serial.service
 	install -m 644 systemd/minimal-ais-json.service $(PKGROOT)/etc/systemd/system/minimal-ais-json.service
 

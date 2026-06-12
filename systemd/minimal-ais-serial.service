@@ -1,6 +1,7 @@
 [Unit]
 Description=Minimal AIS serial to UDP forwarder
 After=network.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple
